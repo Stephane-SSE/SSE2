@@ -989,7 +989,7 @@ function initFirebase(){
 
   auth = firebase.auth();
   db = firebase.database();
-  produitsRef = db.ref('produits');
+  produitsRef = db.ref('etablissements/etab-principal/produits');
 
   // Réagit à l'état de connexion : connecté -> application ; déconnecté -> écran de login.
   auth.onAuthStateChanged(user=>{
@@ -1033,7 +1033,7 @@ function attachDatabase(){
 // Vérifie si l'utilisateur connecté est administrateur (présent dans /admins/{uid}).
 function checkAdmin(user){
   elAdminZone.style.display = 'block';
-  db.ref('admins/' + user.uid).once('value').then(snap=>{
+  db.ref('etablissements/etab-principal/admins/' + user.uid).once('value').then(snap=>{
     isAdmin = snap.exists() && snap.val() !== false;
     elAdminAllowed.style.display = isAdmin ? 'flex' : 'none';
     elAdminDenied.style.display  = isAdmin ? 'none' : 'flex';
